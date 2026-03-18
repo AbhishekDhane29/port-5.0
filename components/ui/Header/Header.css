@@ -1,0 +1,37 @@
+/**
+ * Header Component Styles
+ * Extracted from PropGPT Figma design
+ */
+
+.ds-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: var(--layout-header-pad-y) var(--layout-header-pad-x);  /* 21px 24px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.ds-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  overflow: hidden;
+}
+
+.ds-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7);   /* 20px */
+}
+
+.ds-header__status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

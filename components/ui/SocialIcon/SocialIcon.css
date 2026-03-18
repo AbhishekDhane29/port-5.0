@@ -1,0 +1,40 @@
+/**
+ * SocialIcon Component Styles
+ * Extracted from PropGPT Figma design
+ */
+
+.ds-social-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);  /* 8px */
+  border-radius: var(--radius-md);
+  border: var(--border-default);
+  background-color: var(--color-bg-primary);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.ds-social-icon:hover {
+  border-color: #d0d0d0;
+  background-color: var(--color-bg-surface);
+}
+
+.ds-social-icon__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.ds-social-icon__inner img,
+.ds-social-icon__inner svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}

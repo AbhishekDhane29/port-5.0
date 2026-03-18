@@ -1,0 +1,25 @@
+/**
+ * NavLink Component Styles
+ * Extracted from PropGPT Figma design
+ */
+
+.ds-nav-link {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-none);
+  font-style: normal;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.ds-nav-link--active {
+  color: var(--color-text-primary);
+}
+
+.ds-nav-link:hover:not(.ds-nav-link--active) {
+  color: var(--color-text-primary);
+}

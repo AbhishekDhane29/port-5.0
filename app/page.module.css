@@ -1,0 +1,175 @@
+/*
+ * Landing page layout — structural composition only.
+ * All visual values (colors, fonts, radii, etc.) use tokens from variables.css.
+ */
+
+/* ─── Page wrapper ────────────────────────────────────── */
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-10);         /* 60px — Figma: gap-[60px] */
+  padding-bottom: var(--space-9); /* 24px — Figma: pb-[24px] */
+  padding-inline: var(--space-9); /* 24px — Figma: px-[24px] */
+  background-color: var(--color-bg-primary);
+  min-height: 100vh;
+}
+
+/* ─── Shared: full-width section constrained to max-width ─ */
+
+.hero,
+.projectSection,
+.footerWrapper {
+  width: 100%;
+  max-width: var(--layout-max-width); /* 1728px */
+}
+
+/* ─── Hero ────────────────────────────────────────────── */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);           /* 60px between heading row and resume/bio row */
+  min-height: 540px;              /* Figma: h-[540px] */
+  align-items: flex-start;
+  justify-content: center;        /* Figma: justify-center */
+  padding-top: 160px;             /* Figma: pt-[160px] — clears absolute header */
+  padding-bottom: 100px;          /* Figma: pb-[100px] */
+}
+
+/* Each row is a full-width flex container split left | right */
+.heroRow {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  overflow: hidden;               /* Figma: overflow-clip */
+}
+
+/* Left column — 604.8 / 1728 = 35.0% */
+.heroLeft {
+  flex-shrink: 0;
+  width: 35%;
+}
+
+/* Right column — takes remaining space */
+.heroRight {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* ─── Hero heading text ───────────────────────────────── */
+
+/*
+ * "Hi there, I'm Abhishek" — single paragraph, two inline spans.
+ * Uses existing ds-text classes; only the color split is handled here.
+ */
+.heroGreeting {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xl);     /* 32px */
+  line-height: var(--line-height-hero); /* 38.4px */
+  color: var(--color-text-secondary);   /* #9e9e9e — Figma base color */
+  font-style: normal;
+  margin: 0;
+}
+
+/* "Abhishek" span — color override to primary */
+.heroNameAccent {
+  color: var(--color-text-primary); /* #212121 */
+}
+
+/* "Product Designer" */
+.heroTitle {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xl);       /* 32px */
+  line-height: var(--line-height-hero); /* 38.4px */
+  color: var(--color-text-primary);     /* #212121 */
+  font-style: normal;
+  margin: 0;
+}
+
+/* ─── Bio block ───────────────────────────────────────── */
+
+.heroBio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* ~10px visually after line-height — matches Figma absolute offset */
+}
+
+.bioText {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-lg);         /* 18px */
+  line-height: var(--line-height-body-large); /* 23.4px */
+  color: var(--color-text-primary);
+  font-style: normal;
+  margin: 0;
+}
+
+/* "read more." — Figma: text-[#666] text-[14px] decoration-dotted underline */
+.readMore {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);      /* 14px */
+  line-height: 17.64px;                /* Figma: leading-[17.64px] */
+  color: var(--color-text-subtle);     /* #666 */
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  width: fit-content;
+}
+
+.readMore:hover {
+  color: var(--color-text-primary);
+}
+
+/* ─── Project grid ────────────────────────────────────── */
+
+/* Figma: overflow-clip pr-px — 1px right padding prevents outer border hairline */
+.projectSection {
+  overflow: hidden;
+  padding-right: 1px;
+}
+
+/* Cards share borders — no gap. Grid handles equal column distribution. */
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ─── Footer ──────────────────────────────────────────── */
+
+/* Footer wraps the ds-footer component — no extra padding needed */
+.footerWrapper {
+  /* inherits max-width + width from shared rule above */
+}
+
+/* ─── Responsive ──────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .heroRow {
+    flex-direction: column;
+    gap: var(--space-5); /* 12px */
+  }
+
+  .heroLeft {
+    width: 100%;
+  }
+
+  .projectGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 100px;
+    min-height: auto;
+  }
+
+  .projectGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,81 @@
+/**
+ * ProjectCard Component Styles
+ * Extracted from PropGPT Figma design
+ */
+
+.ds-project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);       /* 12px */
+  padding: var(--layout-card-padding);  /* 10px */
+  background-color: var(--color-bg-primary);
+  border: var(--border-default);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.ds-project-card:hover {
+  border-color: #d0d0d0;
+}
+
+/* ─── Image ───────────────────────────────────────────── */
+
+.ds-project-card__image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 548 / 401.55;
+  overflow: hidden;
+}
+
+.ds-project-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 102%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* ─── Body ────────────────────────────────────────────── */
+
+.ds-project-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 7.99px;
+  overflow: hidden;
+}
+
+.ds-project-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ds-project-card__title {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body-nav);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.ds-project-card__tags {
+  display: flex;
+  gap: var(--space-1);       /* 4px */
+  flex-wrap: wrap;
+}
+
+.ds-project-card__description {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-description);
+  color: var(--color-text-secondary);
+}

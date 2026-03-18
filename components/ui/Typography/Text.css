@@ -1,0 +1,95 @@
+/**
+ * Text Component Styles
+ * All variants mapped from design tokens.
+ */
+
+.ds-text {
+  margin: 0;
+  font-style: normal;
+}
+
+/* ─── Variants ────────────────────────────────────────── */
+
+.ds-text--hero {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-hero);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+.ds-text--body-large {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-body-large);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+.ds-text--body {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+.ds-text--body-nav {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body-nav);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+.ds-text--caption {
+  font-family: var(--font-space-mono);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-caption);
+  letter-spacing: var(--letter-spacing-sm);
+}
+
+.ds-text--label {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-none);
+  white-space: nowrap;
+}
+
+.ds-text--description {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-description);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+.ds-text--footer {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-caption);
+  letter-spacing: var(--letter-spacing-md);
+  white-space: nowrap;
+}
+
+.ds-text--available {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: 16px;
+  letter-spacing: var(--letter-spacing-lg);
+  white-space: nowrap;
+}
+
+/* ─── Colors ──────────────────────────────────────────── */
+
+.ds-text--primary   { color: var(--color-text-primary); }
+.ds-text--secondary { color: var(--color-text-secondary); }
+.ds-text--tertiary  { color: var(--color-text-tertiary); }
+.ds-text--subtle    { color: var(--color-text-subtle); }
+.ds-text--accent    { color: var(--color-accent-blue); }
+.ds-text--iterating { color: var(--color-status-iterating-text); }

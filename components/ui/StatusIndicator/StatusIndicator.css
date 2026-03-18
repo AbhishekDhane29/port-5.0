@@ -1,0 +1,29 @@
+/**
+ * StatusIndicator Component Styles
+ * Extracted from PropGPT Figma design
+ */
+
+.ds-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);  /* 12px */
+}
+
+.ds-status-indicator__dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-blue);
+  flex-shrink: 0;
+}
+
+.ds-status-indicator__label {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: 16px;
+  letter-spacing: var(--letter-spacing-lg);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}

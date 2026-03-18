@@ -1,0 +1,104 @@
+/**
+ * Typography Styles
+ * Utility classes mapped directly from design tokens.
+ * Requires variables.css to be loaded first.
+ */
+
+/* ─── Base reset ──────────────────────────────────────── */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+/* ─── Type Scale Classes ──────────────────────────────── */
+
+.text-hero {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-hero);
+  letter-spacing: var(--letter-spacing-none);
+  font-style: normal;
+}
+
+.text-body-large {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-body-large);
+  letter-spacing: var(--letter-spacing-none);
+  font-style: normal;
+}
+
+.text-body {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-none);
+  font-style: normal;
+}
+
+.text-body-nav {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body-nav);
+  letter-spacing: var(--letter-spacing-none);
+  font-style: normal;
+}
+
+.text-caption {
+  font-family: var(--font-space-mono);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-caption);
+  letter-spacing: var(--letter-spacing-sm);
+  font-style: normal;
+}
+
+.text-label {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-none);
+  font-style: normal;
+}
+
+.text-description {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-description);
+  letter-spacing: var(--letter-spacing-none);
+  font-style: normal;
+}
+
+.text-footer {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-caption);
+  letter-spacing: var(--letter-spacing-md);
+  font-style: normal;
+}
+
+.text-available {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: 16px;
+  letter-spacing: var(--letter-spacing-lg);
+  font-style: normal;
+}
+
+/* ─── Color Utility Classes ───────────────────────────── */
+
+.text-primary   { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary  { color: var(--color-text-tertiary); }
+.text-subtle    { color: var(--color-text-subtle); }
+.text-accent    { color: var(--color-accent-blue); }
+.text-iterating { color: var(--color-status-iterating-text); }

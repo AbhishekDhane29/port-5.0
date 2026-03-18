@@ -1,0 +1,48 @@
+/**
+ * ResumeLink Component Styles
+ * Extracted from PropGPT Figma design
+ */
+
+.ds-resume-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);        /* 4px */
+  padding-bottom: 2px;
+  text-decoration: none;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+}
+
+/* Dashed bottom border matching the ::after overlay in Figma */
+.ds-resume-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px dashed var(--color-text-tertiary);
+}
+
+.ds-resume-link__label {
+  font-family: var(--font-space-mono);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-caption);
+  letter-spacing: var(--letter-spacing-sm);
+  white-space: nowrap;
+}
+
+.ds-resume-link__arrow {
+  font-family: var(--font-space-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1;
+}
+
+.ds-resume-link:hover {
+  color: var(--color-text-primary);
+}
+
+.ds-resume-link:hover::after {
+  border-color: var(--color-text-primary);
+}

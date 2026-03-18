@@ -1,0 +1,60 @@
+/**
+ * Footer Component Styles
+ * Extracted from PropGPT Figma design
+ */
+
+.ds-footer {
+  width: 100%;
+  height: 64px;
+  overflow: hidden;
+}
+
+.ds-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+  height: 100%;
+}
+
+/* ─── Three columns ───────────────────────────────────── */
+
+.ds-footer__col {
+  display: flex;
+  align-items: center;
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ds-footer__col--center {
+  justify-content: center;
+}
+
+.ds-footer__col--right {
+  justify-content: flex-end;
+}
+
+/* ─── Text ────────────────────────────────────────────── */
+
+.ds-footer__copyright,
+.ds-footer__quote {
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-caption);
+  letter-spacing: var(--letter-spacing-md);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* ─── Social icons row ────────────────────────────────── */
+
+.ds-footer__social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);   /* 10px */
+  padding-right: 11px;   /* matches Figma framer-1yb5127 spacer */
+}

@@ -1,0 +1,71 @@
+/**
+ * Global Styles
+ * Minimal reset + base styles for the design system.
+ * Import order: variables.css → globals.css → typography.css
+ */
+
+@import "./variables.css";
+@import "./typography.css";
+
+/* ─── Reset ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-satoshi);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ─── Layout Utility ──────────────────────────────────── */
+
+.ds-container {
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+  padding-inline: var(--layout-page-gutter-x);
+}
+
+.ds-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--layout-section-gap);
+  padding-inline: var(--layout-page-gutter-x);
+  padding-bottom: 24px;
+  background-color: var(--color-bg-primary);
+}

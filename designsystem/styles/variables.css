@@ -1,0 +1,99 @@
+/**
+ * CSS Custom Properties (Design Tokens)
+ * Extracted from PropGPT Figma design (node 29:1928)
+ * Import this file at the root of your application.
+ */
+
+:root {
+  /* ─── Colors: Background ─────────────────────────────── */
+  --color-bg-primary:        #ffffff;
+  --color-bg-surface:        #f0f0f0;
+
+  /* ─── Colors: Text ───────────────────────────────────── */
+  --color-text-primary:      #212121;
+  --color-text-secondary:    #9e9e9e;
+  --color-text-tertiary:     #737373;
+  --color-text-subtle:       #666666;
+
+  /* ─── Colors: Border ─────────────────────────────────── */
+  --color-border-default:    #f0f0f0;
+
+  /* ─── Colors: Accent ─────────────────────────────────── */
+  --color-accent-blue:       #2f80ed;
+
+  /* ─── Colors: Status ─────────────────────────────────── */
+  --color-status-iterating-bg:   #ffe6d9;
+  --color-status-iterating-text: #e85613;
+
+  /* ─── Typography: Font Families ──────────────────────── */
+  --font-satoshi:    'Satoshi', sans-serif;
+  --font-space-mono: 'Space Mono', monospace;
+
+  /* ─── Typography: Font Weights ───────────────────────── */
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+
+  /* ─── Typography: Font Sizes ─────────────────────────── */
+  --font-size-xs:  12px;
+  --font-size-sm:  14px;
+  --font-size-md:  16px;
+  --font-size-lg:  18px;
+  --font-size-xl:  32px;
+
+  /* ─── Typography: Line Heights ───────────────────────── */
+  --line-height-hero:        38.4px;
+  --line-height-body-large:  23.4px;
+  --line-height-body-nav:    20.16px;
+  --line-height-body:        19.2px;
+  --line-height-caption:     19.6px;
+  --line-height-label:       14.4px;
+  --line-height-description: 15.12px;
+
+  /* ─── Typography: Letter Spacing ─────────────────────── */
+  --letter-spacing-none: 0;
+  --letter-spacing-sm:   0.28px;
+  --letter-spacing-md:   0.56px;
+  --letter-spacing-lg:   0.64px;
+
+  /* ─── Spacing ─────────────────────────────────────────── */
+  --space-1:   4px;
+  --space-2:   6px;
+  --space-3:   8px;
+  --space-4:   10px;
+  --space-5:   12px;
+  --space-6:   14px;
+  --space-7:   20px;
+  --space-8:   21px;
+  --space-9:   24px;
+  --space-10:  60px;
+  --space-11: 100px;
+  --space-12: 160px;
+
+  /* ─── Layout ──────────────────────────────────────────── */
+  --layout-max-width:      1728px;
+  --layout-page-gutter-x: 24px;
+  --layout-section-gap:   60px;
+  --layout-card-padding:  10px;
+  --layout-header-pad-y:  21px;
+  --layout-header-pad-x:  24px;
+
+  /* ─── Border Radius ───────────────────────────────────── */
+  --radius-none:   0px;
+  --radius-sm:     1px;
+  --radius-md:     3px;
+  --radius-full:   9999px;
+
+  /* ─── Borders ─────────────────────────────────────────── */
+  --border-default: 1px solid var(--color-border-default);
+
+  /* ─── Shadows ─────────────────────────────────────────── */
+  --shadow-none:    none;
+  --shadow-subtle:  0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-soft:    0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-medium:  0 4px 16px rgba(0, 0, 0, 0.10);
+
+  /* ─── Transitions ─────────────────────────────────────── */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+}
