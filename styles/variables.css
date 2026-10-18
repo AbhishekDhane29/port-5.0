@@ -27,7 +27,8 @@
 
   /* ─── Typography: Font Families ──────────────────────── */
   --font-satoshi:    'Satoshi', sans-serif;
-  --font-space-mono: 'Space Mono', monospace;
+  /* next/font sets --font-space-mono-loaded on <html> */
+  --font-space-mono: var(--font-space-mono-loaded, 'Space Mono'), monospace;
 
   /* ─── Typography: Font Weights ───────────────────────── */
   --font-weight-regular: 400;

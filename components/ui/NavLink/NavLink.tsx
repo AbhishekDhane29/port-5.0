@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { sound } from "@/lib/sound";
 import "./NavLink.css";
 
 export interface NavLinkProps {
@@ -13,10 +16,6 @@ export interface NavLinkProps {
  *
  * Navigation item used in the site header.
  * Active state renders in text-primary; inactive in text-secondary.
- *
- * @example
- * <NavLink label="Projects" href="/" active />
- * <NavLink label="Info" href="/info" />
  */
 export const NavLink: React.FC<NavLinkProps> = ({
   label,
@@ -29,6 +28,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
       className={`ds-nav-link ${active ? "ds-nav-link--active" : ""} ${className}`.trim()}
       href={href}
       aria-current={active ? "page" : undefined}
+      onClick={() => sound.play("tap")}
     >
       {label}
     </a>

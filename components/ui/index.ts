@@ -24,3 +24,6 @@ export type { HeaderProps, HeaderNavItem } from "./Header/Header";
 
 export { Footer } from "./Footer/Footer";
 export type { FooterProps, FooterSocialLink } from "./Footer/Footer";
+
+export { SoftLink } from "./SoftLink/SoftLink";
+export type { SoftLinkProps } from "./SoftLink/SoftLink";

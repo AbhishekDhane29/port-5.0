@@ -119,6 +119,7 @@
   text-decoration: underline;
   text-decoration-style: dotted;
   width: fit-content;
+  transition: color var(--transition-fast);
 }
 
 .readMore:hover {
@@ -127,16 +128,29 @@
 
 /* ─── Project grid ────────────────────────────────────── */
 
-/* Figma: overflow-clip pr-px — 1px right padding prevents outer border hairline */
+/* Clip horizontal hairline only — keep vertical overflow so card hover lift is visible */
 .projectSection {
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   padding-right: 1px;
+  padding-top: 4px;
+  margin-top: -4px;
 }
 
 /* Cards share borders — no gap. Grid handles equal column distribution. */
 .projectGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+/* Stagger wrappers must fill the grid cell without breaking layout. */
+.projectGrid > * {
+  min-width: 0;
+  height: 100%;
+}
+
+.projectGrid > * > * {
+  height: 100%;
 }
 
 /* ─── Footer ──────────────────────────────────────────── */
