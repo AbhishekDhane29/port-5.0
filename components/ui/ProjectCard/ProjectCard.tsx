@@ -66,7 +66,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         className={classes}
         href={href}
         aria-label={title}
-        whileHover={reduce ? undefined : { y: -3 }}
+        whileHover={reduce ? undefined : { y: -4 }}
         transition={springSoft}
         {...interaction}
       >
@@ -78,7 +78,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <motion.div
       className={classes}
-      whileHover={reduce ? undefined : { y: -3 }}
+      whileHover={reduce ? undefined : { y: -4 }}
       transition={springSoft}
       {...interaction}
     >

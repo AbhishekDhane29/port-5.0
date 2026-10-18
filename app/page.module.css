@@ -128,10 +128,13 @@
 
 /* ─── Project grid ────────────────────────────────────── */
 
-/* Figma: overflow-clip pr-px — 1px right padding prevents outer border hairline */
+/* Clip horizontal hairline only — keep vertical overflow so card hover lift is visible */
 .projectSection {
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   padding-right: 1px;
+  padding-top: 4px;
+  margin-top: -4px;
 }
 
 /* Cards share borders — no gap. Grid handles equal column distribution. */
