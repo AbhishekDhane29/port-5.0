@@ -119,6 +119,7 @@
   text-decoration: underline;
   text-decoration-style: dotted;
   width: fit-content;
+  transition: color var(--transition-fast);
 }
 
 .readMore:hover {
@@ -137,6 +138,16 @@
 .projectGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+/* Stagger wrappers must fill the grid cell without breaking layout. */
+.projectGrid > * {
+  min-width: 0;
+  height: 100%;
+}
+
+.projectGrid > * > * {
+  height: 100%;
 }
 
 /* ─── Footer ──────────────────────────────────────────── */

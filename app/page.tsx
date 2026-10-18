@@ -3,7 +3,9 @@ import {
   Footer,
   ProjectCard,
   ResumeLink,
+  SoftLink,
 } from "@/components/ui";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import styles from "./page.module.css";
 
 /* ─── Figma asset URLs (valid for 7 days from generation) ── */
@@ -93,15 +95,15 @@ export default function HomePage() {
       <Header navItems={NAV_ITEMS} statusLabel="Available for hire" />
 
       {/* ── Hero ────────────────────────────────────────── */}
-      <section className={styles.hero} aria-label="Introduction">
-
+      <Reveal
+        as="section"
+        className={styles.hero}
+        delay={0.05}
+        aria-label="Introduction"
+      >
         {/* Row 1 — greeting (left) | title (right) */}
         <div className={styles.heroRow}>
           <div className={styles.heroLeft}>
-            {/*
-             * Single <p> with two inline spans — matches Figma structure exactly:
-             * base color = #9e9e9e (secondary), "Abhishek" overrides to #212121 (primary)
-             */}
             <p className={styles.heroGreeting}>
               Hi there, I&apos;m{" "}
               <span className={styles.heroNameAccent}>Abhishek</span>
@@ -124,32 +126,33 @@ export default function HomePage() {
                 with strong product thinking, systems thinking, and the ability
                 to move from ambiguity to clear user experiences.
               </p>
-              <a href="/about" className={styles.readMore}>
+              <SoftLink href="/about" className={styles.readMore}>
                 read more.
-              </a>
+              </SoftLink>
             </div>
           </div>
         </div>
-
-      </section>
+      </Reveal>
 
       {/* ── Project grid ────────────────────────────────── */}
       <section className={styles.projectSection} aria-label="Projects">
-        <div className={styles.projectGrid}>
+        <Stagger className={styles.projectGrid}>
           {PROJECTS.map((project) => (
-            <ProjectCard key={project.title} {...project} />
+            <StaggerItem key={project.title}>
+              <ProjectCard {...project} />
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </section>
 
       {/* ── Footer ──────────────────────────────────────── */}
-      <div className={styles.footerWrapper}>
+      <Reveal className={styles.footerWrapper} delay={0.2}>
         <Footer
-          copyright="© 2026 Abhishek Dhane • Built with framer"
+          copyright="© 2026 Abhishek Dhane • Built with Next.js"
           quote="If it looks simple, I fought for it."
           socialLinks={SOCIAL_LINKS}
         />
-      </div>
+      </Reveal>
 
     </div>
   );

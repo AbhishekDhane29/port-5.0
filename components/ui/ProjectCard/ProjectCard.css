@@ -16,6 +16,8 @@
   color: inherit;
   overflow: hidden;
   transition: border-color var(--transition-fast);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .ds-project-card:hover {
@@ -39,6 +41,24 @@
   height: 102%;
   object-fit: cover;
   pointer-events: none;
+  transform: translateZ(0) scale(1);
+  transition: transform var(--transition-slow);
+}
+
+.ds-project-card:hover .ds-project-card__image {
+  transform: translateZ(0) scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-project-card,
+  .ds-project-card__image {
+    transition: none;
+    will-change: auto;
+  }
+
+  .ds-project-card:hover .ds-project-card__image {
+    transform: none;
+  }
 }
 
 /* ─── Body ────────────────────────────────────────────── */

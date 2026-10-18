@@ -23,7 +23,7 @@ export interface FooterProps {
  *
  * @example
  * <Footer
- *   copyright="© 2026 Abhishek Dhane • Built with framer"
+ *   copyright="© 2026 Abhishek Dhane • Built with Next.js"
  *   quote="If it looks simple, I fought for it."
  *   socialLinks={[
  *     { platform: "linkedin", href: "https://linkedin.com/in/...", icon: <img src={li} /> },
@@ -31,7 +31,7 @@ export interface FooterProps {
  * />
  */
 export const Footer: React.FC<FooterProps> = ({
-  copyright = "© 2026 Abhishek Dhane • Built with framer",
+  copyright = "© 2026 Abhishek Dhane • Built with Next.js",
   quote = "If it looks simple, I fought for it.",
   socialLinks = [],
   className = "",

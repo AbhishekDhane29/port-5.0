@@ -1,6 +1,11 @@
+"use client";
+
 import React from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { Badge } from "../Badge/Badge";
 import type { ProjectCardProps } from "./ProjectCard.types";
+import { springSoft } from "@/lib/motion";
+import { sound } from "@/lib/sound";
 import "./ProjectCard.css";
 
 /**
@@ -8,15 +13,7 @@ import "./ProjectCard.css";
  *
  * Displays a project with a cover image, title, tags, and description.
  * Wraps in an anchor tag when `href` is provided.
- *
- * @example
- * <ProjectCard
- *   title="PropGPT"
- *   description="AI sports predictions made accessible..."
- *   imageSrc="/images/propgpt.png"
- *   tags={[{ label: "Design" }, { label: "Development" }]}
- *   href="/projects/propgpt"
- * />
+ * Hover uses transform-only motion for a smooth, GPU-friendly lift.
  */
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
@@ -27,6 +24,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   href,
   className = "",
 }) => {
+  const reduce = useReducedMotion();
+  const classes = `ds-project-card ${className}`.trim();
+
   const inner = (
     <>
       <div className="ds-project-card__image-wrapper">
@@ -55,22 +55,35 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     </>
   );
 
+  const interaction = {
+    onPointerEnter: () => sound.play("hover"),
+    onClick: () => sound.play("soft"),
+  };
+
   if (href) {
     return (
-      <a
-        className={`ds-project-card ${className}`.trim()}
+      <motion.a
+        className={classes}
         href={href}
         aria-label={title}
+        whileHover={reduce ? undefined : { y: -3 }}
+        transition={springSoft}
+        {...interaction}
       >
         {inner}
-      </a>
+      </motion.a>
     );
   }
 
   return (
-    <div className={`ds-project-card ${className}`.trim()}>
+    <motion.div
+      className={classes}
+      whileHover={reduce ? undefined : { y: -3 }}
+      transition={springSoft}
+      {...interaction}
+    >
       {inner}
-    </div>
+    </motion.div>
   );
 };
 
