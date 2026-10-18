@@ -27,8 +27,9 @@
 
   /* ─── Typography: Font Families ──────────────────────── */
   --font-satoshi:    'Satoshi', sans-serif;
-  /* next/font sets --font-space-mono-loaded on <html> */
+  /* next/font sets --font-space-*-loaded on <html> */
   --font-space-mono: var(--font-space-mono-loaded, 'Space Mono'), monospace;
+  --font-space-grotesk: var(--font-space-grotesk-loaded, 'Space Grotesk'), sans-serif;
 
   /* ─── Typography: Font Weights ───────────────────────── */
   --font-weight-regular: 400;
@@ -40,6 +41,7 @@
   --font-size-md:  16px;
   --font-size-lg:  18px;
   --font-size-xl:  32px;
+  --font-size-case-hero: 40px;
 
   /* ─── Typography: Line Heights ───────────────────────── */
   --line-height-hero:        38.4px;

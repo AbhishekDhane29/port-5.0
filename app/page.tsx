@@ -48,6 +48,7 @@ const PROJECTS = [
     imageSrc: IMG_PROPGPT,
     imageAlt: "PropGPT app interface",
     tags: [{ label: "Design" }, { label: "Development" }],
+    href: "/projects/propgpt",
   },
   {
     title: "VRBO",

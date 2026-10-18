@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Mono } from "next/font/google";
+import { Space_Grotesk, Space_Mono } from "next/font/google";
 import { InteractionProvider } from "@/components/providers/InteractionProvider";
 import "@/styles/globals.css";
 
@@ -8,6 +8,13 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
   display: "swap",
   variable: "--font-space-mono-loaded",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500"],
+  display: "swap",
+  variable: "--font-space-grotesk-loaded",
 });
 
 export const metadata: Metadata = {
@@ -22,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={spaceMono.variable}>
+    <html lang="en" className={`${spaceMono.variable} ${spaceGrotesk.variable}`}>
       <head>
         <link
           href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500&display=swap"
