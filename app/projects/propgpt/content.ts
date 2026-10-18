@@ -32,18 +32,26 @@ export const PROBLEM = {
   label: "Problem",
   heading:
     "PropGPT’s power was hidden behind confusing flows and cluttered screens.",
+  gallery: [
+    { caption: "Home Screen" },
+    { caption: "Selecting bet" },
+    { caption: "Selecting Stat line" },
+  ],
   cards: [
     {
       title: "One Flow Tried to Do Two Jobs",
       body: "Evaluating a single bet and building a parlay lived in the same tangled path. Users couldn’t tell whether they were exploring a pick or committing to a slip, which slowed decisions and created avoidable mistakes.",
+      mediaLabel: "Problem illustration — one flow, two jobs",
     },
     {
       title: "No Discovery, Users Went to Discord",
       body: "Without a trustworthy in-app way to scan insights quickly, people left for Discord and other side channels. The product’s intelligence never got a chance to earn confidence at the moment of discovery.",
+      mediaLabel: "Problem illustration — discovery gap",
     },
     {
       title: "Every Bet Was Auto-Saved to Parlays",
       body: "Individual bets were automatically dumped into parlays. There was no clean separation between “save this pick” and “build a multi-leg slip,” which frustrated users who wanted control over what stuck around.",
+      mediaLabel: "Problem illustration — auto-saved parlays",
     },
   ],
 };
@@ -98,16 +106,19 @@ export const NEW_FLOWS = {
   heading: "Evaluate Bet user flow",
   steps: [
     {
-      title: "Evaluate Bet user flow — Explore",
+      title: "Evaluate Bet user flow",
       body: "Users land on a focused evaluation surface for a single prop: the claim, the line, and the primary signal. Secondary stats stay available without crowding the first decision.",
+      mediaLabel: "Evaluate Bet flow — explore screen",
     },
     {
-      title: "Evaluate Bet user flow — Decide",
+      title: "Evaluate Bet user flow",
       body: "Confidence, context, and risk are staged so the next action is obvious — dig deeper, save the pick, or move on — without accidentally mutating a parlay.",
+      mediaLabel: "Evaluate Bet flow — decide screen",
     },
     {
-      title: "Evaluate Bet user flow — Commit",
+      title: "Evaluate Bet user flow",
       body: "Commitment is explicit. Saving a bet, adding to a parlay, or sharing an insight are separate actions with clear confirmation, so intent always matches outcome.",
+      mediaLabel: "Evaluate Bet flow — commit screen",
     },
   ],
 };

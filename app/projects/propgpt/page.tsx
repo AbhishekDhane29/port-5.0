@@ -19,6 +19,25 @@ export const metadata: Metadata = {
     "Case study: Making winning easier for sports bettors with PropGPT AI props analysis.",
 };
 
+function MediaPlaceholder({
+  label,
+  className,
+  caption,
+}: {
+  label: string;
+  className?: string;
+  caption?: string;
+}) {
+  return (
+    <figure className={className}>
+      <div className={styles.mediaFill} role="img" aria-label={label} />
+      {caption ? (
+        <figcaption className={styles.mediaCaption}>{caption}</figcaption>
+      ) : null}
+    </figure>
+  );
+}
+
 export default function PropGptCaseStudyPage() {
   return (
     <div className={styles.page}>
@@ -86,6 +105,11 @@ export default function PropGptCaseStudyPage() {
               </a>
             </div>
 
+            <MediaPlaceholder
+              className={styles.heroMedia}
+              label="PropGPT hero app preview — image coming soon"
+            />
+
             <dl className={styles.meta}>
               <div className={styles.metaItem}>
                 <dt className={styles.metaLabel}>Role</dt>
@@ -124,11 +148,28 @@ export default function PropGptCaseStudyPage() {
             <p className={styles.sectionLabel}>{PROBLEM.label}</p>
             <h2 className={styles.sectionHeading}>{PROBLEM.heading}</h2>
 
+            <div className={styles.phoneGallery} aria-label="Legacy app screens">
+              {PROBLEM.gallery.map((frame) => (
+                <MediaPlaceholder
+                  key={frame.caption}
+                  className={styles.phoneFrame}
+                  label={`${frame.caption} — image coming soon`}
+                  caption={frame.caption}
+                />
+              ))}
+            </div>
+
             <div className={styles.problemCards}>
               {PROBLEM.cards.map((card) => (
                 <article key={card.title} className={styles.problemCard}>
-                  <h3 className={styles.problemTitle}>{card.title}</h3>
-                  <p className={styles.body}>{card.body}</p>
+                  <div className={styles.problemCardCopy}>
+                    <h3 className={styles.problemTitle}>{card.title}</h3>
+                    <p className={styles.body}>{card.body}</p>
+                  </div>
+                  <MediaPlaceholder
+                    className={styles.problemThumb}
+                    label={`${card.mediaLabel} — image coming soon`}
+                  />
                 </article>
               ))}
             </div>
@@ -138,8 +179,17 @@ export default function PropGptCaseStudyPage() {
               <div className={styles.feedbackGrid}>
                 {FEEDBACK.comments.map((comment) => (
                   <article key={comment.user} className={styles.feedbackCard}>
-                    <p className={styles.feedbackUser}>{comment.user}</p>
-                    <p className={styles.feedbackMeta}>{comment.meta}</p>
+                    <div className={styles.feedbackHeader}>
+                      <span
+                        className={styles.feedbackAvatar}
+                        role="img"
+                        aria-label={`${comment.user} avatar placeholder`}
+                      />
+                      <div className={styles.feedbackIdentity}>
+                        <p className={styles.feedbackUser}>{comment.user}</p>
+                        <p className={styles.feedbackMeta}>{comment.meta}</p>
+                      </div>
+                    </div>
                     <p className={styles.feedbackBody}>{comment.body}</p>
                   </article>
                 ))}
@@ -165,10 +215,19 @@ export default function PropGptCaseStudyPage() {
             <p className={styles.sectionLabel}>{NEW_FLOWS.label}</p>
             <h2 className={styles.sectionHeading}>{NEW_FLOWS.heading}</h2>
             <div className={styles.flowList}>
-              {NEW_FLOWS.steps.map((step) => (
-                <article key={step.title} className={styles.flowItem}>
-                  <h3 className={styles.flowTitle}>{step.title}</h3>
-                  <p className={styles.body}>{step.body}</p>
+              {NEW_FLOWS.steps.map((step, index) => (
+                <article
+                  key={`${step.mediaLabel}-${index}`}
+                  className={styles.flowItem}
+                >
+                  <div className={styles.flowCopy}>
+                    <h3 className={styles.flowTitle}>{step.title}</h3>
+                    <p className={styles.body}>{step.body}</p>
+                  </div>
+                  <MediaPlaceholder
+                    className={styles.flowMedia}
+                    label={`${step.mediaLabel} — image coming soon`}
+                  />
                 </article>
               ))}
             </div>
