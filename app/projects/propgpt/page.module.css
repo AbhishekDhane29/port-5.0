@@ -145,9 +145,45 @@
 }
 
 .toc {
+  display: grid;
+  grid-template-columns: 2px minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: stretch;
+}
+
+.tocTrack {
+  position: relative;
+  width: 2px;
+  border-radius: 999px;
+  background-color: #f0f0f0;
+  align-self: stretch;
+}
+
+.tocIndicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  border-radius: 999px;
+  background-color: #212121;
+  transform: translateY(0);
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    height 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, height;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tocIndicator {
+    transition: none;
+  }
+}
+
+.tocLinks {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-width: 0;
 }
 
 .tocLink {
@@ -162,6 +198,10 @@
 
 .tocLink:hover,
 .tocLink:focus-visible {
+  color: #212121;
+}
+
+.tocLinkActive {
   color: #212121;
 }
 
@@ -634,9 +674,18 @@
   }
 
   .toc {
+    grid-template-columns: 2px minmax(0, 1fr);
+  }
+
+  .tocLinks {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 12px 16px;
+  }
+
+  /* Horizontal TOC on small screens — keep a short active tick */
+  .tocTrack {
+    display: none;
   }
 
   .heroTitle,

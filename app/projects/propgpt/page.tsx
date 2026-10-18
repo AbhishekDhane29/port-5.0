@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SoftLink } from "@/components/ui";
+import { CaseStudyToc } from "./CaseStudyToc";
 import {
   CASE_META,
   SIDEBAR_LINKS,
@@ -77,13 +78,7 @@ export default function PropGptCaseStudyPage() {
             <p className={styles.sidebarSubtitle}>{CASE_META.subtitle}</p>
           </div>
 
-          <nav className={styles.toc} aria-label="On this page">
-            {SIDEBAR_LINKS.map((link) => (
-              <a key={link.id} href={`#${link.id}`} className={styles.tocLink}>
-                {link.label}
-              </a>
-            ))}
-          </nav>
+          <CaseStudyToc links={SIDEBAR_LINKS} />
 
           <a
             href="#"
