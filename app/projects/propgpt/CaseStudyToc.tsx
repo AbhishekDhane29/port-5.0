@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { sound } from "@/lib/sound";
 import styles from "./page.module.css";
 
@@ -21,79 +15,118 @@ type CaseStudyTocProps = {
 
 const SCROLL_PROBE = 120;
 
+function clamp(value: number, min = 0, max = 1) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function smoothstep(t: number) {
+  const x = clamp(t);
+  return x * x * (3 - 2 * x);
+}
+
 export function CaseStudyToc({ links }: CaseStudyTocProps) {
   const [activeId, setActiveId] = useState(links[0]?.id ?? "");
   const [indicator, setIndicator] = useState({ top: 0, height: 14 });
   const listRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const reduceMotionRef = useRef(false);
 
-  const measureIndicator = useCallback((id: string) => {
+  const updateFromScroll = useCallback(() => {
+    const ids = links.map((link) => link.id);
     const list = listRef.current;
-    const link = linkRefs.current.get(id);
-    if (!list || !link) return;
+    if (ids.length === 0 || !list) return;
 
     const listBox = list.getBoundingClientRect();
-    const linkBox = link.getBoundingClientRect();
-
-    setIndicator({
-      top: linkBox.top - listBox.top,
-      height: Math.max(12, linkBox.height),
-    });
-  }, []);
-
-  const resolveActiveSection = useCallback(() => {
-    const ids = links.map((link) => link.id);
-    if (ids.length === 0) return;
-
-    const doc = document.documentElement;
+    const probeY = window.scrollY + SCROLL_PROBE;
     const atBottom =
-      window.innerHeight + window.scrollY >= doc.scrollHeight - 48;
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 48;
 
-    if (atBottom) {
-      setActiveId(ids[ids.length - 1]);
-      return;
-    }
-
-    let current = ids[0];
-    for (const id of ids) {
-      const section = document.getElementById(id);
+    let index = 0;
+    for (let i = 0; i < ids.length; i += 1) {
+      const section = document.getElementById(ids[i]);
       if (!section) continue;
-      if (section.getBoundingClientRect().top <= SCROLL_PROBE) {
-        current = id;
+      const sectionTop = window.scrollY + section.getBoundingClientRect().top;
+      if (sectionTop <= probeY) index = i;
+    }
+    if (atBottom) index = ids.length - 1;
+
+    const currentId = ids[index];
+    const nextId = ids[index + 1];
+    const currentLink = linkRefs.current.get(currentId);
+    const nextLink = nextId ? linkRefs.current.get(nextId) : undefined;
+    if (!currentLink) return;
+
+    const currentBox = currentLink.getBoundingClientRect();
+    const fromTop = currentBox.top - listBox.top;
+    const fromHeight = Math.max(12, currentBox.height);
+    const fromBottom = fromTop + fromHeight;
+
+    let progress = 0;
+    if (nextId && nextLink && !atBottom) {
+      const currentSection = document.getElementById(currentId);
+      const nextSection = document.getElementById(nextId);
+      if (currentSection && nextSection) {
+        const start =
+          window.scrollY + currentSection.getBoundingClientRect().top;
+        const end = window.scrollY + nextSection.getBoundingClientRect().top;
+        const range = end - start;
+        progress = range > 0 ? clamp((probeY - start) / range) : 0;
       }
     }
 
-    setActiveId(current);
+    const eased = smoothstep(progress);
+
+    if (reduceMotionRef.current || !nextLink) {
+      setIndicator({ top: fromTop, height: fromHeight });
+    } else {
+      const nextBox = nextLink.getBoundingClientRect();
+      const toTop = nextBox.top - listBox.top;
+      const toBottom = toTop + Math.max(12, nextBox.height);
+
+      // Grow the black segment along the track toward the next item,
+      // then let the trailing edge catch up so it settles/snaps there.
+      const head = fromBottom + (toBottom - fromBottom) * eased;
+      const tail = fromTop + (toTop - fromTop) * Math.max(0, (eased - 0.35) / 0.65);
+
+      const top = Math.min(tail, head);
+      const height = Math.max(fromHeight, Math.abs(head - tail));
+      setIndicator({ top, height });
+    }
+
+    const highlightId =
+      nextId && eased >= 0.5 && !atBottom ? nextId : currentId;
+    setActiveId(highlightId);
   }, [links]);
 
   useEffect(() => {
-    resolveActiveSection();
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reduceMotionRef.current = media.matches;
+
+    const onMotionChange = () => {
+      reduceMotionRef.current = media.matches;
+      updateFromScroll();
+    };
+    media.addEventListener("change", onMotionChange);
+
+    updateFromScroll();
 
     let frame = 0;
     const onScroll = () => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(resolveActiveSection);
+      frame = requestAnimationFrame(updateFromScroll);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
 
     return () => {
+      media.removeEventListener("change", onMotionChange);
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [resolveActiveSection]);
-
-  useLayoutEffect(() => {
-    measureIndicator(activeId);
-  }, [activeId, measureIndicator]);
-
-  useEffect(() => {
-    const onResize = () => measureIndicator(activeId);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [activeId, measureIndicator]);
+  }, [updateFromScroll]);
 
   return (
     <nav className={styles.toc} aria-label="On this page">
@@ -101,7 +134,7 @@ export function CaseStudyToc({ links }: CaseStudyTocProps) {
         <div
           className={styles.tocIndicator}
           style={{
-            transform: `translateY(${indicator.top}px)`,
+            transform: `translate3d(0, ${indicator.top}px, 0)`,
             height: `${indicator.height}px`,
           }}
         />
