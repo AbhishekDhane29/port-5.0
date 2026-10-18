@@ -24,80 +24,132 @@ function smoothstep(t: number) {
   return x * x * (3 - 2 * x);
 }
 
+function sectionAbsTop(id: string) {
+  const section = document.getElementById(id);
+  if (!section) return null;
+  return window.scrollY + section.getBoundingClientRect().top;
+}
+
 export function CaseStudyToc({ links }: CaseStudyTocProps) {
   const [activeId, setActiveId] = useState(links[0]?.id ?? "");
   const [indicator, setIndicator] = useState({ top: 0, height: 14 });
   const listRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const homeIdRef = useRef(links[0]?.id ?? "");
   const reduceMotionRef = useRef(false);
+
+  const placeOnLink = useCallback((id: string) => {
+    const list = listRef.current;
+    const link = linkRefs.current.get(id);
+    if (!list || !link) return;
+
+    const listBox = list.getBoundingClientRect();
+    const linkBox = link.getBoundingClientRect();
+    setIndicator({
+      top: linkBox.top - listBox.top,
+      height: Math.max(12, linkBox.height),
+    });
+    setActiveId(id);
+  }, []);
 
   const updateFromScroll = useCallback(() => {
     const ids = links.map((link) => link.id);
     const list = listRef.current;
     if (ids.length === 0 || !list) return;
 
-    const listBox = list.getBoundingClientRect();
-    const probeY = window.scrollY + SCROLL_PROBE;
-    const atBottom =
-      window.innerHeight + window.scrollY >=
-      document.documentElement.scrollHeight - 48;
-
-    let index = 0;
-    for (let i = 0; i < ids.length; i += 1) {
-      const section = document.getElementById(ids[i]);
-      if (!section) continue;
-      const sectionTop = window.scrollY + section.getBoundingClientRect().top;
-      if (sectionTop <= probeY) index = i;
+    if (!homeIdRef.current || !ids.includes(homeIdRef.current)) {
+      homeIdRef.current = ids[0];
     }
-    if (atBottom) index = ids.length - 1;
 
-    const currentId = ids[index];
-    const nextId = ids[index + 1];
-    const currentLink = linkRefs.current.get(currentId);
-    const nextLink = nextId ? linkRefs.current.get(nextId) : undefined;
-    if (!currentLink) return;
+    const homeId = homeIdRef.current;
+    const homeIndex = ids.indexOf(homeId);
+    const homeLink = linkRefs.current.get(homeId);
+    if (!homeLink || homeIndex < 0) return;
 
-    const currentBox = currentLink.getBoundingClientRect();
-    const fromTop = currentBox.top - listBox.top;
-    const fromHeight = Math.max(12, currentBox.height);
-    const fromBottom = fromTop + fromHeight;
+    const listBox = list.getBoundingClientRect();
+    const homeBox = homeLink.getBoundingClientRect();
+    const homeTop = homeBox.top - listBox.top;
+    const homeHeight = Math.max(12, homeBox.height);
+    const homeBottom = homeTop + homeHeight;
+    const probeY = window.scrollY + SCROLL_PROBE;
+    const homeStart = sectionAbsTop(homeId);
+    if (homeStart == null) return;
 
-    let progress = 0;
-    if (nextId && nextLink && !atBottom) {
-      const currentSection = document.getElementById(currentId);
-      const nextSection = document.getElementById(nextId);
-      if (currentSection && nextSection) {
-        const start =
-          window.scrollY + currentSection.getBoundingClientRect().top;
-        const end = window.scrollY + nextSection.getBoundingClientRect().top;
-        const range = end - start;
-        progress = range > 0 ? clamp((probeY - start) / range) : 0;
+    const nextId = ids[homeIndex + 1];
+    const prevId = ids[homeIndex - 1];
+
+    if (reduceMotionRef.current) {
+      let committed = ids[0];
+      for (const id of ids) {
+        const top = sectionAbsTop(id);
+        if (top != null && top <= probeY) committed = id;
+      }
+      homeIdRef.current = committed;
+      placeOnLink(committed);
+      return;
+    }
+
+    // Stretch down toward the next section; snap the instant we arrive.
+    if (nextId) {
+      const nextStart = sectionAbsTop(nextId);
+      const nextLink = linkRefs.current.get(nextId);
+      if (nextStart != null && nextLink) {
+        const range = nextStart - homeStart;
+        const progress = range > 0 ? (probeY - homeStart) / range : 0;
+
+        if (progress >= 1) {
+          homeIdRef.current = nextId;
+          placeOnLink(nextId);
+          return;
+        }
+
+        if (progress > 0) {
+          const nextBox = nextLink.getBoundingClientRect();
+          const nextTop = nextBox.top - listBox.top;
+          const eased = smoothstep(progress);
+          // Keep the top pinned; only the leading edge grows downward.
+          const height = homeHeight + (nextTop - homeTop) * eased;
+          setIndicator({ top: homeTop, height: Math.max(homeHeight, height) });
+          setActiveId(homeId);
+          return;
+        }
       }
     }
 
-    const eased = smoothstep(progress);
+    // Stretch up toward the previous section while scrolling back.
+    if (prevId && probeY < homeStart) {
+      const prevStart = sectionAbsTop(prevId);
+      const prevLink = linkRefs.current.get(prevId);
+      if (prevStart != null && prevLink) {
+        const range = homeStart - prevStart;
+        const progress = range > 0 ? (homeStart - probeY) / range : 0;
 
-    if (reduceMotionRef.current || !nextLink) {
-      setIndicator({ top: fromTop, height: fromHeight });
-    } else {
-      const nextBox = nextLink.getBoundingClientRect();
-      const toTop = nextBox.top - listBox.top;
-      const toBottom = toTop + Math.max(12, nextBox.height);
+        if (progress >= 1) {
+          homeIdRef.current = prevId;
+          placeOnLink(prevId);
+          return;
+        }
 
-      // Grow the black segment along the track toward the next item,
-      // then let the trailing edge catch up so it settles/snaps there.
-      const head = fromBottom + (toBottom - fromBottom) * eased;
-      const tail = fromTop + (toTop - fromTop) * Math.max(0, (eased - 0.35) / 0.65);
-
-      const top = Math.min(tail, head);
-      const height = Math.max(fromHeight, Math.abs(head - tail));
-      setIndicator({ top, height });
+        if (progress > 0) {
+          const prevBox = prevLink.getBoundingClientRect();
+          const prevTop = prevBox.top - listBox.top;
+          const eased = smoothstep(progress);
+          // Keep the bottom pinned; grow the top edge upward.
+          const top = homeTop + (prevTop - homeTop) * eased;
+          setIndicator({
+            top,
+            height: Math.max(homeHeight, homeBottom - top),
+          });
+          setActiveId(homeId);
+          return;
+        }
+      }
     }
 
-    const highlightId =
-      nextId && eased >= 0.5 && !atBottom ? nextId : currentId;
-    setActiveId(highlightId);
-  }, [links]);
+    // Resting on the snapped section.
+    setIndicator({ top: homeTop, height: homeHeight });
+    setActiveId(homeId);
+  }, [links, placeOnLink]);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -155,7 +207,8 @@ export function CaseStudyToc({ links }: CaseStudyTocProps) {
               }}
               onClick={() => {
                 sound.play("tap");
-                setActiveId(link.id);
+                homeIdRef.current = link.id;
+                placeOnLink(link.id);
               }}
             >
               {link.label}
